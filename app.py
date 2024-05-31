@@ -8,7 +8,6 @@ import seaborn as sns
 # Initiate Database
 conn = sqlite3.connect('mahasiswa.db')
 c = conn.cursor()
-
 c.execute('''CREATE TABLE IF NOT EXISTS Mahasiswa
              (Nama TEXT, NIM TEXT, Gender TEXT, Kontak TEXT, Jurusan TEXT, Semester INTEGER, UTS INTEGER, UAS INTEGER)''')
 
@@ -98,7 +97,7 @@ st.title('📚WEBSITE MANAJEMEN HIMIT✅')
 
 if authenticate_user():
     # Input data
-    pilihan_mahasiswa = st.radio('Pilih Mahasiswa', ['D3', 'D4'])
+    pilihan_mahasiswa = st.radio('Pilih Mahasiswa', ['D3', 'D4', 'S2'])
     name = st.text_input('Nama Mahasiswa')
     nim = st.text_input('NIM Mahasiswa')
     gender = st.selectbox('Gender Mahasiswa', ['Laki-laki', 'Perempuan'])
@@ -113,6 +112,10 @@ if authenticate_user():
         semester = student.get_lama_kuliah()
     elif pilihan_mahasiswa == 'D4':
         student = D4(name, nim, gender, kontak, uts, uas)
+        jurusan = st.selectbox('Jurusan', student.get_program())
+        semester = student.get_lama_kuliah()
+    elif pilihan_mahasiswa == 'S2':
+        student = S2(name, nim, gender, kontak, uts, uas)
         jurusan = st.selectbox('Jurusan', student.get_program())
         semester = student.get_lama_kuliah()
 
@@ -184,4 +187,5 @@ if authenticate_user():
 
         fig2 = go.Figure(data=[trace_uts, trace_uas], layout=layout)
         st.plotly_chart(fig2)
+        
 conn.close()
