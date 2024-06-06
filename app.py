@@ -13,7 +13,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS Mahasiswa
 
 # Python OOP
 class Mahasiswa:
-    # Encapsulation
+    # Encapsulation (private)
     def __init__(self, name, nim, gender, kontak, uts, uas):
         self._name = name
         self._nim = nim
